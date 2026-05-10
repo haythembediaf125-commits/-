@@ -1,0 +1,7 @@
+-keep class com.getcapacitor.** { *; }
+-keep class com.clowthex.app.** { *; }
+-keepclassmembers class * { @android.webkit.JavascriptInterface <methods>; }
+-keepattributes *Annotation*
+-keepattributes SourceFile,LineNumberTable
+-dontwarn com.google.firebase.**
+-dontwarn io.grpc.**
