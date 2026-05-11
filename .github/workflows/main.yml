@@ -22,12 +22,73 @@ jobs:
 
       - run: npm install
 
+      - name: Check styles.css exists
+        run: |
+          if [ ! -f src/styles.css ]; then
+            echo "Creating missing styles.css..."
+            cat > src/styles.css << 'CSS'
+          @import "tailwindcss" source(none);
+          @source ".";
+          @import "tw-animate-css";
+          @custom-variant dark (&:is(.dark *));
+          :root {
+            --radius: 0.625rem;
+            --background: 0 0% 100%;
+            --foreground: 240 10% 3.9%;
+            --card: 0 0% 100%;
+            --card-foreground: 240 10% 3.9%;
+            --primary: 240 5.9% 10%;
+            --primary-foreground: 0 0% 98%;
+            --secondary: 240 4.8% 95.9%;
+            --secondary-foreground: 240 5.9% 10%;
+            --muted: 240 4.8% 95.9%;
+            --muted-foreground: 240 3.8% 46.1%;
+            --accent: 240 4.8% 95.9%;
+            --accent-foreground: 240 5.9% 10%;
+            --destructive: 0 84.2% 60.2%;
+            --border: 240 5.9% 90%;
+            --input: 240 5.9% 90%;
+            --ring: 240 5.9% 10%;
+            --gold: 43 74% 52%;
+            --gold-foreground: 0 0% 100%;
+          }
+          .dark {
+            --background: 240 10% 3.9%;
+            --foreground: 0 0% 98%;
+            --card: 240 10% 3.9%;
+            --card-foreground: 0 0% 98%;
+            --primary: 0 0% 98%;
+            --primary-foreground: 240 5.9% 10%;
+            --secondary: 240 3.7% 15.9%;
+            --secondary-foreground: 0 0% 98%;
+            --muted: 240 3.7% 15.9%;
+            --muted-foreground: 240 5% 64.9%;
+            --accent: 240 3.7% 15.9%;
+            --accent-foreground: 0 0% 98%;
+            --destructive: 0 62.8% 30.6%;
+            --border: 240 3.7% 15.9%;
+            --input: 240 3.7% 15.9%;
+            --ring: 240 4.9% 83.9%;
+            --gold: 43 74% 52%;
+            --gold-foreground: 0 0% 100%;
+          }
+          * { border-color: hsl(var(--border)); }
+          body { background-color: hsl(var(--background)); color: hsl(var(--foreground)); }
+          .bg-gradient-gold { background: linear-gradient(135deg, #d4af37 0%, #f4d03f 50%, #d4af37 100%); }
+          .shadow-gold { box-shadow: 0 4px 15px rgba(212,175,55,0.3); }
+          .text-gold { color: hsl(var(--gold)); }
+          .transition-smooth { transition: all 0.2s ease; }
+          CSS
+          fi
+          ls -la src/styles.css
+
       - name: Build React
         run: npx vite build
 
       - name: Download gradle wrapper
         run: |
-          curl -fsSL "https://github.com/gradle/gradle/raw/v8.11.1/gradle/wrapper/gradle-wrapper.jar" -o android/gradle/wrapper/gradle-wrapper.jar
+          curl -fsSL "https://github.com/gradle/gradle/raw/v8.11.1/gradle/wrapper/gradle-wrapper.jar" \
+            -o android/gradle/wrapper/gradle-wrapper.jar
 
       - run: npx cap sync android --no-deps
 
