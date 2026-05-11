@@ -6,8 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { AppProvider, useApp } from "@/contexts/AppContext";
 import { ActivationScreen } from "@/components/ActivationScreen";
 import { AppShell } from "@/components/AppShell";
-import "@/styles.css";
-
+import "./styles.css";
 // Capacitor imports
 import { Capacitor } from "@capacitor/core";
 import { SplashScreen } from "@capacitor/splash-screen";
