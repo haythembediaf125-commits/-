@@ -22,7 +22,8 @@ jobs:
 
       - run: npm install
 
-      - run: npm run build
+      - name: Build React
+        run: npx vite build
 
       - name: Download gradle wrapper
         run: |
