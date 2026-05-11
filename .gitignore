@@ -1,0 +1,13 @@
+node_modules/
+dist/
+*.local
+android/app/build/
+android/.gradle/
+android/local.properties
+*.keystore
+*.jks
+.env
+.idea/
+*.DS_Store
+npm-debug.log*
+bun.lock
